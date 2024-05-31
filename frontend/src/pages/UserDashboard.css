@@ -1,0 +1,37 @@
+/* src/pages/UserDashboard.css */
+.dashboard {
+    padding: 20px;
+  }
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .logout-button {
+    background-color: #ff4d4d;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+  }
+  
+  .logout-button:hover {
+    background-color: #cc0000;
+  }
+  
+  .loan-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .loan-table th, .loan-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+  }
+  
+  .loan-table th {
+    background-color: #f2f2f2;
+  }
+  

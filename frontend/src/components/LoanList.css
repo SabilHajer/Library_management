@@ -1,0 +1,17 @@
+/* src/components/LoanList.css */
+.loan-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .loan-table th, .loan-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: left;
+  }
+  
+  .loan-table th {
+    background-color: #f2f2f2;
+  }
+  
