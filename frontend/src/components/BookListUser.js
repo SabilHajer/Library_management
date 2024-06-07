@@ -1,11 +1,9 @@
-// src/components/BookList.js
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import './BookList.css';
-import { useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 
-const BookList = ({ books, onBorrow, onAdd, onEdit, onDelete }) => {
+const BookListUser = ({ books, onBorrow, onAdd, onEdit, onDelete }) => {
   const { token } = useContext(AuthContext);
   const [selectedBook, setSelectedBook] = useState(null);
   const [error, setError] = useState('');
@@ -61,43 +59,45 @@ const BookList = ({ books, onBorrow, onAdd, onEdit, onDelete }) => {
   return (
     <div>
       {error && <p style={{ color: 'red' }}>{error}</p>}
-      <table className="book-table">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>ISBN</th>
-            <th>Category</th>
-            <th>Quantity</th>
-            <th>Available</th>
-            <th>Price</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {books.map(book => (
-            <tr key={book.id}>
-              <td>{book.titre}</td>
-              <td>{book.isbn}</td>
-              <td>{book.genre}</td>
-              <td>{book.quantity}</td>
-              <td>{book.disponible ? 'Yes' : 'No'}</td>
-              <td>{book.price}</td>
-              <td>
-                <button onClick={() => handleViewDetails(book)}>View</button>
-                {book.disponible && !isAdmin && (
-                  <button onClick={() => handleBorrowBook(book.id)}>Borrow</button>
-                )}
-                {isAdmin && (
-                  <>
-                    <button onClick={() => handleEditBook(book.id)}>Edit</button>
-                    <button onClick={() => handleDeleteBook(book.id)}>Delete</button>
-                  </>
-                )}
-              </td>
+      <div className="table-container">
+        <table className="book-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>ISBN</th>
+              <th>Category</th>
+              <th>Quantity</th>
+              <th>Available</th>
+              <th>Price</th>
+              <th>Action</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {books.map((book) => (
+              <tr key={book.id}>
+                <td>{book.titre}</td>
+                <td>{book.isbn}</td>
+                <td>{book.genre}</td>
+                <td>{book.quantity}</td>
+                <td>{book.disponible ? 'Yes' : 'No'}</td>
+                <td>{book.price}</td>
+                <td>
+                  <button onClick={() => handleViewDetails(book)}>View</button>
+                  {book.disponible && !isAdmin && (
+                    <button onClick={() => handleBorrowBook(book.id)}>Borrow</button>
+                  )}
+                  {isAdmin && (
+                    <>
+                      <button onClick={() => handleEditBook(book.id)}>Edit</button>
+                      <button onClick={() => handleDeleteBook(book.id)}>Delete</button>
+                    </>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
       {selectedBook && (
         <div className="modal">
           <div className="modal-content">
@@ -118,4 +118,4 @@ const BookList = ({ books, onBorrow, onAdd, onEdit, onDelete }) => {
   );
 };
 
-export default BookList;
+export default BookListUser;

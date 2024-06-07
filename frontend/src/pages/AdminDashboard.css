@@ -1,37 +1,71 @@
 /* src/pages/AdminDashboard.css */
 .dashboard {
-    padding: 20px;
-  }
+  padding: 20px;
+  background-color: #f4a460; /* Warm color background */
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 10px;
+  background-color: #3b3b3b;
+  color: white;
+  padding: 10px 20px;
+}
+
+.header .logo-container {
+  display: flex;
+  align-items: center;
+}
+
+.header .logo {
+  height: 40px;
+  width: 40px;
+  margin-right: 20px;
+}
+
+.header h1 {
+  flex-grow: 1;
+  text-align: left; /* Left align the Admin Dashboard text */
+}
+
+.nav-buttons {
+  display: flex;
+  gap: 20px; /* Add space between buttons */
+  justify-content: center;
+  flex-grow: 1;
+}
+
+.nav-button {
+  position: relative;
+  margin-right: 5%;
+  background-color: transparent;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border-radius: 10px;
+  text-align: center;
   
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  .logout-button {
-    background-color: #ff4d4d;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-  }
-  
-  .logout-button:hover {
-    background-color: #cc0000;
-  }
-  
-  .loan-table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  
-  .loan-table th, .loan-table td {
-    padding: 10px;
-    border: 1px solid #ddd;
-  }
-  
-  .loan-table th {
-    background-color: #f2f2f2;
-  }
-  
+}
+
+.nav-button.active,
+.nav-button:hover {
+  background-color: #e2a010;
+}
+
+.logout-button {
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.logout-button:hover {
+  background-color: #cc0000;
+}

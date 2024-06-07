@@ -1,3 +1,4 @@
+// src/components/LoanList.js
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import './LoanList.css';
@@ -85,42 +86,45 @@ const LoanList = ({ loans, onRefresh }) => {
 
   return (
     <div>
-      <table className="loan-table">
-        <thead>
-          <tr>
-            <th>User Email</th>
-            <th>Book Title</th>
-            <th>Borrowed On</th>
-            <th>Return By</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {loanDetails.map(loan => (
-            <tr key={loan.id}>
-              <td>{loan.userEmail}</td>
-              <td>{loan.bookTitle}</td>
-              <td>{new Date(loan.dateEmprunt).toLocaleDateString()}</td>
-              <td>{new Date(loan.dateRetour).toLocaleDateString()}</td>
-              <td>
-                <button onClick={() => handleExtendClick(loan)}>Extend</button>
-                <button onClick={() => handleDeleteLoan(loan.id)}>Delete</button>
-              </td>
+      <div className="table-container">
+        <table className="loan-table">
+          <thead>
+            <tr>
+              <th>User Email</th>
+              <th>Book Title</th>
+              <th>Borrowed On</th>
+              <th>Return By</th>
+              <th>Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {loanDetails.map(loan => (
+              <tr key={loan.id}>
+                <td>{loan.userEmail}</td>
+                <td>{loan.bookTitle}</td>
+                <td>{new Date(loan.dateEmprunt).toLocaleDateString()}</td>
+                <td>{new Date(loan.dateRetour).toLocaleDateString()}</td>
+                <td>
+                  <button className="extend-button" onClick={() => handleExtendClick(loan)}>Extend</button>
+                  <button className="delete-button" onClick={() => handleDeleteLoan(loan.id)}>Delete</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
       {isModalOpen && (
-        <div className="modal">
-          <div className="modal-content">
+        <>
+          <div className="overlay" onClick={handleModalClose}></div>
+          <div className="form-container">
             <h2>Extend Loan</h2>
             <label>New Return Date:</label>
             <input type="date" value={newReturnDate} onChange={handleDateChange} />
-            <button onClick={handleExtendSubmit}>Submit</button>
-            <button onClick={handleModalClose}>Cancel</button>
+            <button className="submit-button" onClick={handleExtendSubmit}>Extend Loan</button>
+            <button className="cancel-button" onClick={handleModalClose}>Cancel</button>
           </div>
-        </div>
+        </>
       )}
     </div>
   );

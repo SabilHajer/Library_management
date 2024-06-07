@@ -95,54 +95,58 @@ const BookList = ({ books, onRefresh }) => {
   return (
     <div>
       {error && <p style={{ color: 'red' }}>{error}</p>}
-      <table className="book-table">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>ISBN</th>
-            <th>Category</th>
-            <th>Quantity</th>
-            <th>Available</th>
-            <th>Price</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {books.map((book) => (
-            <tr key={book.id}>
-              <td>{book.titre}</td>
-              <td>{book.isbn}</td>
-              <td>{book.genre}</td>
-              <td>{book.quantity}</td>
-              <td>{book.disponible ? 'Yes' : 'No'}</td>
-              <td>{book.price}</td>
-              <td>
-                <button onClick={() => handleViewDetails(book)}>View</button>
-                <button onClick={() => handleEditBookClick(book)}>Edit</button>
-                <button onClick={() => handleDeleteBook(book.id)}>Delete</button>
-              </td>
+      <div className="table-container">
+        <table className="book-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              
+              <th>Category</th>
+              <th>Quantity</th>
+              <th>Available</th>
+              <th>Price</th>
+              <th>Action</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {books.map((book) => (
+              <tr key={book.id}>
+                <td>{book.titre}</td>
+                
+                <td>{book.genre}</td>
+                <td>{book.quantity}</td>
+                <td>{book.disponible ? 'Yes' : 'No'}</td>
+                <td>{book.price}</td>
+                <td>
+                  <button className="view-button" onClick={() => handleViewDetails(book)}>View</button>
+                  <button className="edit-button" onClick={() => handleEditBookClick(book)}>Edit</button>
+                  <button className="delete-button" onClick={() => handleDeleteBook(book.id)}>Delete</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
       {selectedBook && !editMode && !addMode && (
-        <div className="modal">
-          <div className="modal-content">
+        <>
+          <div className="overlay" onClick={handleCloseModal}></div>
+          <div className="form-container">
             <h2>{selectedBook.titre}</h2>
             <p><strong>Author:</strong> {selectedBook.auteur}</p>
             <p><strong>Genre:</strong> {selectedBook.genre}</p>
-            <p><strong>ISBN:</strong> {selectedBook.isbn}</p>
+            
             <p><strong>Quantity:</strong> {selectedBook.quantity}</p>
             <p><strong>Available:</strong> {selectedBook.disponible ? 'Yes' : 'No'}</p>
             <p><strong>Price:</strong> {selectedBook.price}</p>
             <p><strong>Summary:</strong> {selectedBook.resume}</p>
-            <button onClick={handleCloseModal}>Close</button>
+            <button className="submit-button" onClick={handleCloseModal}>Close</button>
           </div>
-        </div>
+        </>
       )}
       {(editMode || addMode) && (
-        <div className="modal">
-          <div className="modal-content">
+        <>
+          <div className="overlay" onClick={handleCloseModal}></div>
+          <div className="form-container">
             <h2>{addMode ? 'Add Book' : 'Edit Book'}</h2>
             <form onSubmit={handleFormSubmit}>
               <div>
@@ -172,13 +176,13 @@ const BookList = ({ books, onRefresh }) => {
                   <option value={false}>No</option>
                 </select>
               </div>
-              <button type="submit">{addMode ? 'Add Book' : 'Save Changes'}</button>
-              <button type="button" onClick={handleCloseModal}>Cancel</button>
+              <button className="submit-button" type="submit">{addMode ? 'Add Book' : 'Save Changes'}</button>
+              <button className="cancel-button" type="button" onClick={handleCloseModal}>Cancel</button>
             </form>
           </div>
-        </div>
+        </>
       )}
-      <button onClick={handleAddBookClick}>Add Book</button>
+      <button className="add-button" onClick={handleAddBookClick}>Add Book</button>
     </div>
   );
 };

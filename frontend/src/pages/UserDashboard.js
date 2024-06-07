@@ -1,14 +1,19 @@
 // src/pages/UserDashboard.js
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import BookList from '../components/BookListUser';
+import './UserDashboard.css';
+import logo from './images/logo.png'; // Adjust the path to where your logo is
 
 const UserDashboard = () => {
   const [books, setBooks] = useState([]);
   const [borrowedBooks, setBorrowedBooks] = useState([]);
   const [error, setError] = useState('');
   const { token, user, logout } = useContext(AuthContext);
+  const [activeTab, setActiveTab] = useState('books'); // State to manage active tab
+  const navigate = useNavigate();
 
   const fetchBooks = async () => {
     try {
@@ -57,39 +62,58 @@ const UserDashboard = () => {
   return (
     <div className="dashboard">
       <div className="header">
-        <h1>Library Management System</h1>
+        <div className="logo-container">
+          <img src={logo} alt="Logo" className="logo" />
+        </div>
+        <h1>User Dashboard</h1>
+        <div className="nav-buttons">
+          <button className={`nav-button ${activeTab === 'books' ? 'active' : ''}`} onClick={() => setActiveTab('books')}>
+            Book List
+          </button>
+          <button className={`nav-button ${activeTab === 'borrowed' ? 'active' : ''}`} onClick={() => setActiveTab('borrowed')}>
+            Borrowed Books
+          </button>
+        </div>
         <button onClick={handleLogout} className="logout-button">Logout</button>
       </div>
       {error && <p style={{ color: 'red' }}>{error}</p>}
-      <h2>Book List</h2>
-      <BookList books={books} />
-      <h2>Borrowed Books</h2>
-      <table className="loan-table">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>ISBN</th>
-            <th>Category</th>
-            <th>Borrowed On</th>
-            <th>Return By</th>
-          </tr>
-        </thead>
-        <tbody>
-  {borrowedBooks.map(loan => (
-    <tr key={loan.id}>
-      <td>{loan.Book.titre}</td>
-      <td>{loan.Book.isbn}</td>
-      <td>{loan.Book.genre}</td>
-      <td>{new Date(loan.dateEmprunt).toLocaleDateString()}</td>
-      <td>{new Date(loan.dateRetour).toLocaleDateString()}</td>
-      <td>
-        <button onClick={() => handleReturnBook(loan.id)}>Return</button>
-      </td>
-    </tr>
-  ))}
-</tbody>
-
-      </table>
+      {activeTab === 'books' && (
+        <>
+          <h2>Book List</h2>
+          <BookList books={books} />
+        </>
+      )}
+      {activeTab === 'borrowed' && (
+        <>
+          <h2>Borrowed Books</h2>
+          <div className="table-container">
+            <table className="loan-table">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Category</th>
+                  <th>Borrowed On</th>
+                  <th>Return By</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                {borrowedBooks.map(loan => (
+                  <tr key={loan.id}>
+                    <td>{loan.Book.titre}</td>
+                    <td>{loan.Book.genre}</td>
+                    <td>{new Date(loan.dateEmprunt).toLocaleDateString()}</td>
+                    <td>{new Date(loan.dateRetour).toLocaleDateString()}</td>
+                    <td>
+                      <button onClick={() => handleReturnBook(loan.id)}>Return</button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </>
+      )}
     </div>
   );
 };

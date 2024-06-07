@@ -84,32 +84,35 @@ const UserList = ({ users, onRefresh }) => {
   return (
     <div>
       {error && <p style={{ color: 'red' }}>{error}</p>}
-      <table className="user-table">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Email</th>
-            <th>Role</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          {users.map((user) => (
-            <tr key={user.id}>
-              <td>{user.nom}</td>
-              <td>{user.email}</td>
-              <td>{user.role}</td>
-              <td>
-                <button onClick={() => handleEditUserClick(user)}>Edit</button>
-                <button onClick={() => handleDeleteUser(user.id)}>Delete</button>
-              </td>
+      <div className="table-container">
+        <table className="user-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Role</th>
+              <th>Actions</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {users.map((user) => (
+              <tr key={user.id}>
+                <td>{user.nom}</td>
+                <td>{user.email}</td>
+                <td>{user.role}</td>
+                <td>
+                  <button className="edit-button" onClick={() => handleEditUserClick(user)}>Edit</button>
+                  <button className="delete-button" onClick={() => handleDeleteUser(user.id)}>Delete</button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
       {(editMode || addMode) && (
-        <div className="modal">
-          <div className="modal-content">
+        <>
+          <div className="overlay" onClick={handleCloseModal}></div>
+          <div className="form-container">
             <h2>{addMode ? 'Add User' : 'Edit User'}</h2>
             <form onSubmit={handleFormSubmit}>
               <div>
@@ -133,13 +136,13 @@ const UserList = ({ users, onRefresh }) => {
                   <option value="admin">Admin</option>
                 </select>
               </div>
-              <button type="submit">{addMode ? 'Add User' : 'Save Changes'}</button>
-              <button type="button" onClick={handleCloseModal}>Cancel</button>
+              <button className="submit-button" type="submit">{addMode ? 'Add User' : 'Save Changes'}</button>
+              <button className="cancel-button" type="button" onClick={handleCloseModal}>Cancel</button>
             </form>
           </div>
-        </div>
+        </>
       )}
-      <button onClick={handleAddUserClick}>Add User</button>
+      <button className="add-button" onClick={handleAddUserClick}>Add User</button>
     </div>
   );
 };

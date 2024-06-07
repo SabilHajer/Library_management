@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { registerUser } from '../services/api';
+import './RegisterPage.css';
 
 const RegisterPage = () => {
   const [name, setName] = useState('');
@@ -19,10 +20,37 @@ const RegisterPage = () => {
       console.error('Registration failed', error);
     }
   };
-
+    // Background style object
+    const backgroundStyle = {
+      backgroundImage: 'url(/background.jpg)',
+      backgroundRepeat: 'no-repeat',
+      backgroundPosition: 'center center',
+      backgroundAttachment: 'fixed',
+      backgroundSize: 'cover',
+      backgroundOrigin: 'border-box',
+      backgroundClip: 'border-box',
+      backgroundColor: '#3a3a3a',
+      display: 'flex',
+      justifyContent: 'center',
+      alignItems: 'center',
+      height: '100vh',
+      width: '100vw',
+      minHeight: '100vh',
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0
+    };
+  
   return (
-    <div>
-      <h2>Register</h2>
+    <div style={backgroundStyle}>
+    <div className="login-modal">
+    <div className="button-container">
+        <button className="nav-button" onClick={() => navigate('/login')}>Login</button>
+        <button className="nav-button" onClick={() => navigate('/register')}>Register</button>
+      </div>
+      
       <form onSubmit={handleSubmit}>
         <div>
           <label>Name:</label>
@@ -45,6 +73,7 @@ const RegisterPage = () => {
         </div>
         <button type="submit">Register</button>
       </form>
+    </div>
     </div>
   );
 };

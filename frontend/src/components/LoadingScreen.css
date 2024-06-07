@@ -1,0 +1,45 @@
+.loading-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: linear-gradient(135deg, #B24592 0%, #D1913C 100%);
+  }
+  
+  .logo-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .logo {
+    width: 200px;
+    height: 200px;
+    animation: fadeInOutLogo 3s ease-in-out;
+  }
+  
+  @keyframes fadeInOutLogo {
+    0%, 100% {
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
+  
+  .slogan {
+    color: #fff;
+    font-size: 24px;
+    margin-top: 20px;
+    animation: fadeInOutText 3s ease-in-out;
+  }
+  
+  @keyframes fadeInOutText {
+    0%, 100% {
+      opacity: 0;
+    }
+    50% {
+      opacity: 1;
+    }
+  }
